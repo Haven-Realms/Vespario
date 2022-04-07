@@ -1,0 +1,2 @@
+# Vespario
+Primary Discord Bot
