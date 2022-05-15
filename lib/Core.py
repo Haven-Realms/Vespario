@@ -30,7 +30,7 @@ class Core(commands.Cog):
             guildID = str(ctx.message.guild.id)
             await self.bot._reload_config(ctx.message.guild)
             await ctx.send("All done! Your Discord server's configuration has now been reloaded.")
-            await self.bot._guild_feature_setup(guild)
+            await self.bot._guild_feature_setup(ctx.message.guild)
         else:
             await self.bot._permission_denied(ctx)
 

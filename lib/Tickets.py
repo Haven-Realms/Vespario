@@ -816,7 +816,6 @@ async def setup(bot):
 
     # Update Recorded Cogs
     bot.recordedCogs.update(dict(tickets=cog))
-    print(bot.recordedCogs)
     
     await bot.add_cog(cog)
 
