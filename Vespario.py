@@ -1,3 +1,8 @@
+###
+### VESPARIO DISCORD BOT
+###
+
+
 import os
 import sys
 # Detect if Discord.py Installed

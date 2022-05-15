@@ -1,3 +1,8 @@
+###
+### SELF-ROLES MODULE
+###
+
+
 # Import Discord Modules
 import typing
 import discord

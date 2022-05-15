@@ -1,3 +1,8 @@
+###
+### CORE MODULE
+###
+
+
 # Import Discord Modules
 import discord
 from discord.ext import commands
