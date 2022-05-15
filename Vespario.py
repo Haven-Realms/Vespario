@@ -289,7 +289,7 @@ class Vespario(commands.Bot):
 
         # Update Servers of Status
         for guild in self.guilds:
-            await self._guild_setup(guild)
+            await self._guild_feature_setup(guild)
             await self.guild_debug(guild, ":green_circle: Vespario is now online.")
 
         print("Vespario Bot Online")
