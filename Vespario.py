@@ -1,5 +1,5 @@
 import os
-
+import sys
 # Detect if Discord.py Installed
 try:
     import discord
@@ -21,7 +21,7 @@ class Vespario(commands.Bot):
     
         # Vespario Base Properties
         self.prefixes = {}
-        self.token = "ODIyMzEzNjM0NDc0MjI5NzYw.YFQdQA.loxBdNquWZqFOX4yvI7DS9P6IAc"
+        self.token = str(sys.argv[0])
         self.enabled = False
         self.id = "822313634474229760"
         
