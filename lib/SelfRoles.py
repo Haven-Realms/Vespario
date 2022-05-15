@@ -139,7 +139,7 @@ class SelfRoles(commands.Cog):
                     emoji = roles[role]
                     if emoji == reaction.emoji.name:
                         member = guild.get_member(reaction.user_id)
-                        activeRole = guild.get_role(role)
+                        activeRole = guild.get_role(int(role))
                         await member.add_roles(activeRole)
                         break
                         
