@@ -180,7 +180,10 @@ class Vespario(commands.Bot):
                 if self._has_feature(guild, feature):
                     cog = self.recordedCogs[feature]
                     print("running cog setup")
-                    await cog._guild_setup(guild)
+                    try:
+                        await cog._guild_setup(guild) 
+                    except Exception as e:
+                        traceback.print_exception(type(e), e, e.__traceback__)
 
     def _has_feature(self, guild, feature):
 
