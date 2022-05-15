@@ -815,9 +815,8 @@ def setup(bot):
     cog = Tickets(bot)
 
     # Update Recorded Cogs
-    cogs = getattr(bot, "recordedCogs")
-    cogs["tickets"] = cog
-    setattr(bot, "recordedCogs", cogs)
+    cogs = {"tickets": cog}
+    bot.recordedCogs.update(cogs)
     
     bot.add_cog(cog)
 
