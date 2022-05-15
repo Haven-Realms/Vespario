@@ -128,7 +128,7 @@ class SelfRoles(commands.Cog):
         config = self.bot.get_config(guild)
 
         if config.has_option("self-roles", "roles"):
-            roles = loads(config.get("self-roles", "roles")
+            roles = loads(config.get("self-roles", "roles"))
         else:
             roles = {}
 
