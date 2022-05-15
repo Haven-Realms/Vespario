@@ -736,7 +736,7 @@ class Tickets(commands.Cog):
             view = TicketSelectorView(self, guild, "ticket")
             await self.bot.guild_debug(guild, ":tickets: Please sepcify a ticket channel.", view=view)
         else:
-
+            print("PASSS")
             # Check if for Required Submission Channels
             supportedTypes = list(self.default_questions.keys())
             for option in guildConfig["tickets"]:
