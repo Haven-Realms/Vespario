@@ -2,7 +2,7 @@
 ### VESPARIO DISCORD BOT
 ###
 
-
+import traceback
 import os
 import sys
 # Detect if Discord.py Installed
@@ -56,10 +56,7 @@ class Vespario(commands.Bot):
                 await self.load_extension(module)
                 print(f"Loaded Module: ({module}) Successfully")
             except Exception as e:
-                exc_type, exc_obj, exc_tb = sys.exc_info()
-                fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-                print(f'[{type(e).__name__}] {e}')
-                print(exc_type, fname, exc_tb.tb_lineno)
+                traceback.print_exception(type(e), e, e.__traceback__)
 
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CheckFailure):
