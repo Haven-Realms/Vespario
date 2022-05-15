@@ -278,7 +278,7 @@ class Vespario(commands.Bot):
         for guild in self.guilds:
             await self.guild_debug(guild, ":green_circle: Vespario is now online.")
 
-        print("Vespario Bot Version 1.2")
+        print("Vespario Bot Online")
         print("Now Active & Running on " + str(len(self.guilds)) + " Discord Servers")
         print("--------------------------\n")
         print("Invite Vespario to Your Server Here:")
