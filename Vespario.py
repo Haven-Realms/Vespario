@@ -279,6 +279,7 @@ class Vespario(commands.Bot):
         for guild in self.guilds:
             config = self.get_config(guild)
             for feature in config["features"]:
+                print(feature)
                 if feature in self.recordedCogs:
                     print(feature)
                     if self._has_feature(guild, feature):
