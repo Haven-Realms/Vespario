@@ -183,9 +183,9 @@ class SelfRoles(commands.Cog):
 
             emojiJson = guildConfig.get("self-roles", "roles")
             emojiJsonProcessed = str(emojiJson).replace('\\', '\\\\')
-            emojis = loads(emojiJsonProcessed)
-            for emoji in emojis:
-                emojiStr = emojis[emoji]
+            emojisDict = loads(emojiJsonProcessed)
+            for emoji in emojisDict:
+                emojiStr = emojisDict[emoji]
                 await message.add_reaction(emojis.encode(emojiStr))
                 
                         
