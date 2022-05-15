@@ -166,6 +166,13 @@ class Vespario(commands.Bot):
         # Append Configuration Object
         setattr(self, str(guild.id) + "CONFIG", guildConfig)
 
+        for feature in config["features"]:
+            if feature in self.recordedCogs[feature]:
+                print(feature)
+                cog = self.recordedCogs[feature]
+                print("running cog setup")
+                await cog._guild_setup(guild)
+
     def _has_feature(self, guild, feature):
 
         # Get Guild Configuration
