@@ -809,7 +809,7 @@ class Tickets(commands.Cog):
             return True
         return False
     
-def setup(bot):
+async def setup(bot):
 
     # Add Ticket Cog to Bot
     cog = Tickets(bot)
@@ -818,6 +818,6 @@ def setup(bot):
     bot.recordedCogs.update(dict(tickets=cog))
     print(bot.recordedCogs)
     
-    bot.add_cog(cog)
+    await bot.add_cog(cog)
 
     

@@ -120,9 +120,9 @@ class Core(commands.Cog):
             return channel
         return None
     
-def setup(bot):
+async def setup(bot):
 
     # Add Core Cog to Bot
     cog = Core(bot)
     bot.recordedCogs["core"] = cog
-    bot.add_cog(cog)
+    await bot.add_cog(cog)

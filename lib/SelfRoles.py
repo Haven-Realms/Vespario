@@ -186,9 +186,9 @@ class SelfRoles(commands.Cog):
             self.bot._permission_denied(ctx)        
         
 
-def setup(bot):
+async def setup(bot):
 
     # Add Self Roles Cog to Bot
     cog = SelfRoles(bot)
     bot.recordedCogs["self-roles"] = cog
-    bot.add_cog(cog)
+    await bot.add_cog(cog)

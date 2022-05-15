@@ -179,9 +179,9 @@ class Announcements(commands.Cog):
                 announcementChannel = self.bot.get_channel(int(guildConf.get("announcements", "channel")))
                 await self._post_announcement(guild, announcement, announcementConf, announcementChannel)
 
-def setup(bot):
+async def setup(bot):
 
     # Add Announcements Cog to Bot
     cog = Announcements(bot)
     bot.recordedCogs["announcements"] = cog
-    bot.add_cog(cog)
+    await bot.add_cog(cog)

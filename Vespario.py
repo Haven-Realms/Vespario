@@ -45,13 +45,16 @@ class Vespario(commands.Bot):
         # Attempt to Load Modules
         for module in self.modules:
             try:
-                self.load_extension(module)
+                await self.setup_hook(module)
                 print(f"Loaded Module: ({module}) Successfully")
             except Exception as e:
                 print(f'[{type(e).__name__}] {e}')
 
         # Run & Connect Token
         self.run(self.token)
+
+    async def setup_hook(self, module):
+        await self.load_extension(module)
 
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CheckFailure):

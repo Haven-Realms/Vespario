@@ -163,9 +163,9 @@ class Moderation(commands.Cog):
         # Debug Finish
         await self.bot.guild_debug(guild, ":judge: Moderation Successfully Enabled.")
 
-def setup(bot):
+async def setup(bot):
 
     # Add Moderation Cog to Bot
     cog = Moderation(bot)
     bot.recordedCogs["moderation"] = cog
-    bot.add_cog(cog)
+    await bot.add_cog(cog)
