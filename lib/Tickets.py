@@ -47,7 +47,7 @@ class TicketSelectorView(discord.ui.View):
 
     @discord.ui.select(placeholder="Select Your Ticket Channel",
                        options=[discord.SelectOption(label=str(channel.name)[:25], description=str(channel.id), value=str(channel.id), emoji='🎫')
-                                for channel in guild.text_channels[:25]])
+                                for channel in self.guild.text_channels[:25]])
 
     async def callback(self, interaction: discord.Interaction):
 
