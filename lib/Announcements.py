@@ -1,25 +1,25 @@
-import nextcord
+import discord
 import os
-from nextcord.ext import commands, tasks
+from discord.ext import commands, tasks
 from datetime import datetime
 from configparser import ConfigParser
-from nextcord import Embed
+from discord import Embed
 
 from json import loads, dumps
 
-class AnnouncementChannelSelector(nextcord.ui.Select):
+class AnnouncementChannelSelector(discord.ui.Select):
 
     def __init__(self, cog, guild, base):
         
         super().__init__(placeholder="Select Your Announcement Channel",
-                       options=[nextcord.SelectOption(label=str(channel.name)[:25], description=str(channel.id), value=str(channel.id), emoji='🎫')
+                       options=[discord.SelectOption(label=str(channel.name)[:25], description=str(channel.id), value=str(channel.id), emoji='🎫')
                                 for channel in guild.text_channels[:25]])
 
         self.cog = cog
         self.guild = guild
         self.base = base
 
-    async def callback(self, interaction: nextcord.Interaction):
+    async def callback(self, interaction: discord.Interaction):
 
         await self.cog._set_announcement_channel(self.guild, interaction, self.base, self.values[0])
         await self.cog._guild_setup(self.guild)
@@ -29,7 +29,7 @@ class AnnouncementChannelSelector(nextcord.ui.Select):
         await message.edit(view=None)
         
 
-class AnnouncementChannelSelectorView(nextcord.ui.View):
+class AnnouncementChannelSelectorView(discord.ui.View):
 
     def __init__(self, cog, guild, base):
         super().__init__(timeout=None)

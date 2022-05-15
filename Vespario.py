@@ -1,15 +1,15 @@
 import os
 import sys
-# Detect if nextcord.py Installed
+# Detect if Discord.py Installed
 try:
-    import nextcord
+    import discord
 except ModuleNotFoundError:
-    os.system("python -m pip install -U nextcord")
-    import nextcord
+    os.system("python -m pip install -U discord")
+    import discord
 
-# Import nextcord Cogs Providers
-from nextcord.ext import commands
-from nextcord.utils import oauth_url
+# Import Discord Cogs Providers
+from discord.ext import commands
+from discord.utils import oauth_url
 
 # Import Other Modules
 from configparser import ConfigParser
@@ -27,7 +27,7 @@ class Vespario(commands.Bot):
         self.id = "822313634474229760"
         
         # Super Class Override
-        super().__init__(command_prefix=commands.when_mentioned_or(self.get_prefix), case_insensitive=True, intents=nextcord.Intents.all())
+        super().__init__(command_prefix=commands.when_mentioned_or(self.get_prefix), case_insensitive=True, intents=discord.Intents.all())
 
         # Remove Lib Help
         self.remove_command("help")
@@ -56,7 +56,7 @@ class Vespario(commands.Bot):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CheckFailure):
             pass
-        elif isinstance(error, nextcord.errors.NotFound):
+        elif isinstance(error, discord.errors.NotFound):
             print("ERROR: FOUND")
             print(type(ctx))
             print(ctx.author)
@@ -293,7 +293,7 @@ class Vespario(commands.Bot):
             await self.guild_debug(guild, ":green_circle: Vespario is now online.")
 
         print("Vespario Bot Online")
-        print("Now Active & Running on " + str(len(self.guilds)) + " nextcord Servers")
+        print("Now Active & Running on " + str(len(self.guilds)) + " Discord Servers")
         print("--------------------------\n")
         print("Invite Vespario to Your Server Here:")
         print(oauth_url(self.id))
@@ -305,7 +305,7 @@ class Vespario(commands.Bot):
         count = str(len(self.guilds)-1)
         
         # Update Presence Status
-        await self.change_presence(activity = nextcord.Activity(type=nextcord.ActivityType.watching, name=" over " + count + " other servers."))
+        await self.change_presence(activity = discord.Activity(type=discord.ActivityType.watching, name=" over " + count + " other servers."))
 
     async def _permission_denied(self, ctx):
         await ctx.send("Sorry, but you do not have permission to perform that command. If this is an error please try consulting and administrator.")

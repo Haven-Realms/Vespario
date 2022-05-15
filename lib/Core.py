@@ -1,8 +1,8 @@
-# Import nextcord Modules
-import nextcord
-from nextcord.ext import commands
-from nextcord.utils import oauth_url
-from nextcord import Spotify
+# Import Discord Modules
+import discord
+from discord.ext import commands
+from discord.utils import oauth_url
+from discord import Spotify
 
 # Load Additional Modules
 from configparser import ConfigParser
@@ -29,7 +29,7 @@ class Core(commands.Cog):
         if ctx.message.author.guild_permissions.administrator:
             guildID = str(ctx.message.guild.id)
             await self.bot._reload_config(ctx.message.guild)
-            await ctx.send("All done! Your nextcord server's configuration has now been reloaded.")
+            await ctx.send("All done! Your Discord server's configuration has now been reloaded.")
             await self.bot._guild_feature_setup(ctx.message.guild)
         else:
             await self.bot._permission_denied(ctx)
@@ -85,7 +85,7 @@ class Core(commands.Cog):
                         await after.add_roles(role)
 
     @commands.command()
-    async def add_default_role(self, ctx, role: nextcord.Role = None):
+    async def add_default_role(self, ctx, role: discord.Role = None):
         if ctx.message.author.guild_permissions.administrator:
 
             # Check if Role Specified

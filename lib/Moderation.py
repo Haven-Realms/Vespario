@@ -1,8 +1,8 @@
-# Import nextcord Modules
-import nextcord
-from nextcord.ext import commands
-from nextcord.utils import oauth_url
-from nextcord import Spotify
+# Import Discord Modules
+import discord
+from discord.ext import commands
+from discord.utils import oauth_url
+from discord import Spotify
 
 # Load Additional Modules
 import os
@@ -49,12 +49,12 @@ class Moderation(commands.Cog):
             # Enable Moderation
             await ctx.send("Enabling Moderation Feature...")
             await self.bot._enable_feature(guild, "moderation")
-            await ctx.send("All done! Your nextcord now has the moderation feature enabled. Please use \"" + self.prefix + "\" for all commands.")
+            await ctx.send("All done! Your discord now has the moderation feature enabled. Please use \"" + self.prefix + "\" for all commands.")
         else:
             self.bot._permission_denied(ctx)
 
     @commands.command()
-    async def allow_score_points(self, ctx, member: nextcord.Member = None):
+    async def allow_score_points(self, ctx, member: discord.Member = None):
         if ctx.message.author.guild_permissions.administrator:
             if member == None:
                 member = ctx.author
@@ -74,7 +74,7 @@ class Moderation(commands.Cog):
             await self.bot._permission_denied(ctx)
 
     @commands.command()
-    async def score(self, ctx, member: nextcord.Member = None, score = "0"):
+    async def score(self, ctx, member: discord.Member = None, score = "0"):
 
         if member == None:
             member = ctx.author
