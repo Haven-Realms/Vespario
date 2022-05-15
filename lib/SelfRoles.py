@@ -180,7 +180,9 @@ class SelfRoles(commands.Cog):
             channel = await guild.fetch_channel(int(channelID))
             message = await channel.fetch_message(int(managerID))
 
-            emojis = loads(guildConfig.get("self-roles", "roles"))
+            emojiJson = guildConfig.get("self-roles", "roles")
+            emojiJsonProcessed = str(emojiJson).replace('\\', '\\\\')
+            emojis = loads(emojiJsonProcessed)
             for emoji in emojis:
                 emojiStr = emojis[emoji]
                 await message.add_reaction(emojiStr)
