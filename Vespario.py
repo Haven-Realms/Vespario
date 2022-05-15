@@ -27,7 +27,6 @@ class Vespario(commands.Bot):
         # Vespario Base Properties
         self.prefixes = {}
         self.token = str(sys.argv[1])
-        print(self.token)
         self.enabled = False
         self.id = "822313634474229760"
         

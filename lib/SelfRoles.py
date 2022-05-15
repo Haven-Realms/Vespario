@@ -160,7 +160,7 @@ class SelfRoles(commands.Cog):
             emojis = loads(guildConfig.get("self-roles", "roles"))
             for emoji in emojis:
                 emojiStr = emojis[emoji]
-                emojiIcon = discord.utils.get(guild.emojis, id=int(emojiStr))
+                emojiIcon = discord.utils.get(guild.emojis, id=str(emojiStr))
                 await message.add_reaction(emojiIcon)
                 
                         
