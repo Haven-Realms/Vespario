@@ -295,6 +295,7 @@ class Vespario(commands.Bot):
         print("--------------------------\n")
         print("Invite Vespario to Your Server Here:")
         print(oauth_url(self.id))
+        os.system("python --version")
         
     async def _update_presence(self):
         
