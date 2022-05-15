@@ -133,7 +133,7 @@ class SelfRoles(commands.Cog):
             roles = {}
 
         if config.has_option("self-roles", "manager"):
-            manager = int(guildConfig.get("self-roles", "manager"))
+            manager = int(config.get("self-roles", "manager"))
             if reaction.message_id == message:
                 for role in roles:
                     emoji = roles[role]
