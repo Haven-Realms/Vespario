@@ -140,14 +140,7 @@ class SelfRoles(commands.Cog):
                     if emoji == reaction.emoji.name:
                         member = guild.get_member(reaction.user_id)
                         activeRole = guild.get_role(int(role))
-                        await member.add_roles(activeRole)
-
-                        channel = guild.get_channel(reaction.channel_id)
-
-                        memo = await channel.send(member.mention + " you now have the role for " + activeRole.name)
-                        sleep(3)
-                        await memo.delete()
-                        
+                        await member.add_roles(activeRole)                        
                         break
                         
                 
