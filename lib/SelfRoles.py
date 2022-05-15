@@ -121,6 +121,13 @@ class SelfRoles(commands.Cog):
 
                 await self._guild_setup(guild)
 
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, reaction):
+
+        print(reaction.message_id)
+        print(reaction.guild_id)
+        print(reaction.user_id)
+
     async def _set_role_channel(self, guild, interaction, channelID):
 
        # Define Variables
