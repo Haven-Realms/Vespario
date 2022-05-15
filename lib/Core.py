@@ -1,8 +1,8 @@
 # Import Discord Modules
-import nextcord
-from nextcord.ext import commands
-from nextcord.utils import oauth_url
-from nextcord import Spotify
+import discord
+from discord.ext import commands
+from discord.utils import oauth_url
+from discord import Spotify
 
 # Load Additional Modules
 from configparser import ConfigParser
@@ -84,7 +84,7 @@ class Core(commands.Cog):
                         await after.add_roles(role)
 
     @commands.command()
-    async def add_default_role(self, ctx, role: nextcord.Role = None):
+    async def add_default_role(self, ctx, role: discord.Role = None):
         if ctx.message.author.guild_permissions.administrator:
 
             # Check if Role Specified
