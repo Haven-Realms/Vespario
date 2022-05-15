@@ -41,6 +41,10 @@ class TicketSelectorView(discord.ui.View):
     def __init__(self, cog, guild, base, *args, **kwargs):
         super().__init__(timeout=None, *args, **kwargs)
 
+        self.cog = cog
+        self.guild = guild
+        self.base = base
+
     @discord.ui.select(placeholder="Select Your Ticket Channel",
                        options=[discord.SelectOption(label=str(channel.name)[:25], description=str(channel.id), value=str(channel.id), emoji='🎫')
                                 for channel in guild.text_channels[:25]])
