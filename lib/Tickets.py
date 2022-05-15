@@ -1,7 +1,7 @@
-# Import Discord Modules
+# Import nextcord Modules
 import typing
-import discord
-from discord.ext import app_commands
+import nextcord
+from nextcord.ext import app_commands
 
 # Load Additional Modules
 import os
@@ -9,19 +9,19 @@ from json import loads, dumps
 from configparser import ConfigParser
 
 # Tickets Dropdown Class #
-class TicketSelector(discord.ui.Select):
+class TicketSelector(nextcord.ui.Select):
 
     def __init__(self, cog, guild, base):
         
         super().__init__(placeholder="Select Your Ticket Channel",
-                       options=[discord.SelectOption(label=str(channel.name)[:25], description=str(channel.id), value=str(channel.id), emoji='🎫')
+                       options=[nextcord.SelectOption(label=str(channel.name)[:25], description=str(channel.id), value=str(channel.id), emoji='🎫')
                                 for channel in guild.text_channels[:25]])
 
         self.cog = cog
         self.guild = guild
         self.base = base
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction: nextcord.Interaction):
 
         await self.cog._set_ticket_channel(self.guild, interaction, self.base, self.values[0])
         await self.cog._guild_setup(self.guild)
@@ -31,26 +31,26 @@ class TicketSelector(discord.ui.Select):
         await message.edit(view=None)
         
 
-class TicketSelectorView(discord.ui.View):
+class TicketSelectorView(nextcord.ui.View):
 
     def __init__(self, cog, guild, base):
         super().__init__(timeout=None)
 
         self.add_item(TicketSelector(cog, guild, base))
 
-class TicketRoleSelector(discord.ui.Select):
+class TicketRoleSelector(nextcord.ui.Select):
 
     def __init__(self, cog, guild, base):
         
         super().__init__(placeholder="Select Your Role",
-                       options=[discord.SelectOption(label=str(role.name)[:25], description=str(role.id), value=str(role.id), emoji='🎫')
+                       options=[nextcord.SelectOption(label=str(role.name)[:25], description=str(role.id), value=str(role.id), emoji='🎫')
                                 for role in guild.roles[:25]])
 
         self.cog = cog
         self.guild = guild
         self.base = base
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction: nextcord.Interaction):
 
         await self.cog._add_ticket_role(self.guild, interaction, self.base, self.values[0])
         await self.cog._guild_setup(self.guild)
@@ -60,18 +60,18 @@ class TicketRoleSelector(discord.ui.Select):
         await message.edit(view=None)
         
 
-class TicketRoleSelectorView(discord.ui.View):
+class TicketRoleSelectorView(nextcord.ui.View):
 
     def __init__(self, cog, guild, base):
         super().__init__(timeout=None)
 
         self.add_item(TicketRoleSelector(cog, guild, base))
 
-class SingleTicketManager(discord.ui.Button["Cancel"]):
+class SingleTicketManager(nextcord.ui.Button["Cancel"]):
 
     def __init__(self, cog, guild, type, channel, member):
 
-        super().__init__(style=discord.ButtonStyle.red, label="Close Ticket", emoji=None)
+        super().__init__(style=nextcord.ButtonStyle.red, label="Close Ticket", emoji=None)
 
         # Define Variables
         self.cog = cog
@@ -80,23 +80,23 @@ class SingleTicketManager(discord.ui.Button["Cancel"]):
         self.channel = channel
         self.member = member
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction: nextcord.Interaction):
 
         # Close Ticket
         await self.cog._delete_ticket(self.guild, self.channel, self.member, self.ticketType)
 
-class SingleTicketManagerView(discord.ui.View):
+class SingleTicketManagerView(nextcord.ui.View):
 
     def __init__(self, cog, guild, type, channel, member):
         super().__init__(timeout=None)
 
         self.add_item(SingleTicketManager(cog, guild, type, channel, member))
 
-class TicketOptionSelector(discord.ui.Select):
+class TicketOptionSelector(nextcord.ui.Select):
 
     def __init__(self, cog, guild, type, channel, member, options, questionTypes):
         super().__init__(placeholder="Select Your " + cog.names[type] + " Option",
-                         options=[discord.SelectOption(label=option["name"], description=option["description"], value=option["name"], emoji=option["emoji"])
+                         options=[nextcord.SelectOption(label=option["name"], description=option["description"], value=option["name"], emoji=option["emoji"])
                                  for option in options])
 
         self.cog = cog
@@ -107,7 +107,7 @@ class TicketOptionSelector(discord.ui.Select):
         self.ticketOptions = options.pop()
         self.questionTypes = questionTypes
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction: nextcord.Interaction):
 
         # Check if Cancel
         if self.values[0] == "Cancel":
@@ -125,7 +125,7 @@ class TicketOptionSelector(discord.ui.Select):
             await self.cog._process_response_ticket(self.guild, self.channel, self.ticketType, self.member, self.questionTypes, 0)
             
 
-class TicketOptionSelectorView(discord.ui.View):
+class TicketOptionSelectorView(nextcord.ui.View):
 
     def __init__(self, cog, guild, type, channel, member, options, questionTypes):
 
@@ -133,10 +133,10 @@ class TicketOptionSelectorView(discord.ui.View):
 
         self.add_item(TicketOptionSelector(cog, guild, type, channel, member, options, questionTypes))
 
-class SubmitResponse(discord.ui.Button["Submit"]):
+class SubmitResponse(nextcord.ui.Button["Submit"]):
 
     def __init__(self, cog, guild, ticketType, member, iteration, iterTotal):
-        super().__init__(style=discord.ButtonStyle.green, label="Next Step " + iteration + "/" + iterTotal if iteration < iterTotal else "Finish " + ticketType.replace("_", " ").capitalize(), emoji=cog.emojis[ticketType])
+        super().__init__(style=nextcord.ButtonStyle.green, label="Next Step " + iteration + "/" + iterTotal if iteration < iterTotal else "Finish " + ticketType.replace("_", " ").capitalize(), emoji=cog.emojis[ticketType])
 
         # Define Variables
         self.cog = cog
@@ -144,7 +144,7 @@ class SubmitResponse(discord.ui.Button["Submit"]):
         self.ticketType = ticketType
         self.member = member
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction: nextcord.Interaction):
 
         # Define Variables
         message = interaction.message
@@ -194,7 +194,7 @@ class SubmitResponse(discord.ui.Button["Submit"]):
                 questionTypes[option.replace("_questions", "")] = questions
         await self.cog._process_response_ticket(self.guild, channel, self.ticketType, self.member, questionTypes, iteration + 1)
     
-class SubmitResponseView(discord.ui.View):
+class SubmitResponseView(nextcord.ui.View):
 
     def __init__(self, cog, guild, ticketType, member, iteration, iterTotal):
         super().__init__(timeout=None)
@@ -203,7 +203,7 @@ class SubmitResponseView(discord.ui.View):
         submit = SubmitResponse(cog, guild, ticketType, member, iteration, iterTotal)
         self.add_item(submit)
 
-class TicketManager(discord.ui.View):
+class TicketManager(nextcord.ui.View):
 
     def __init__(self, cog, guild):
         super().__init__(timeout=None)
@@ -216,18 +216,18 @@ class TicketManager(discord.ui.View):
                 button = TicketButton(cog, guild, type)
                 self.add_item(button)
 
-class TicketButton(discord.ui.Button["Ticket"]):
+class TicketButton(nextcord.ui.Button["Ticket"]):
 
     def __init__(self, cog, guild, ticketType):
 
-        super().__init__(style=discord.ButtonStyle.green, label=cog.names[ticketType], emoji=cog.emojis[ticketType])
+        super().__init__(style=nextcord.ButtonStyle.green, label=cog.names[ticketType], emoji=cog.emojis[ticketType])
 
         # Define Variables
         self.guild = guild
         self.cog = cog
         self.ticketType = ticketType
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction: nextcord.Interaction):
 
         await self.cog._create_ticket_channel(self.guild, self.ticketType, interaction.user)
 
@@ -435,7 +435,7 @@ class Tickets(app_commands.Cog):
         submitChannel = await guild.fetch_channel(submitChannelID)
 
         # Setup Embed
-        embed = discord.Embed(
+        embed = nextcord.Embed(
             title="New " + type.replace("_", " ").capitalize() + " From " + member.display_name,
             colour=0x00bcff,
             description="We've just received a new " + type.replace("_", " ") + "."
@@ -470,7 +470,7 @@ class Tickets(app_commands.Cog):
         questions = questionTypes[type]
         try:
             question = questions[iteration]
-            embed = discord.Embed(colour=0x00bcff, title=question[0], description=question[1])
+            embed = nextcord.Embed(colour=0x00bcff, title=question[0], description=question[1])
 
             manager = await channel.send(embed=embed)
 
@@ -530,7 +530,7 @@ class Tickets(app_commands.Cog):
             view = SubmitResponseView(self, guild, type, author, str(iteration), str(iterTotal))
             await channel.send("Are you sure you would like to submit this response? If you would like to add more or update your answer please edit your message.", view=view)
 
-    async def _create_ticket_channel(self, guild: discord.Guild, type, member: discord.Member):
+    async def _create_ticket_channel(self, guild: nextcord.Guild, type, member: nextcord.Member):
 
         # Load Configuration
         config = self.bot.get_config(guild)
@@ -553,7 +553,7 @@ class Tickets(app_commands.Cog):
                 # Notify Member of Existing Channel
                 await channel.send(member.mention + " you already have this " + self.names[type].lower() + " open. Please close or finish this before opening a new one.")
                 return
-            except discord.errors.NotFound:
+            except nextcord.errors.NotFound:
 
                 # Channel Deleted So Reset Section
                 tickets.remove_section(ticketID)
@@ -601,14 +601,14 @@ class Tickets(app_commands.Cog):
                 allResponses = loads(allResponses)
             if type in allResponses:
                 description = allResponses[str(type)]
-                embed = discord.Embed(
+                embed = nextcord.Embed(
                     title=str(member.display_name) + "'s " + self.names[type],
                     colour=0x00bcff,
                     description=description
                 )
 
         if embed == None:
-            embed = discord.Embed(
+            embed = nextcord.Embed(
                 title=str(member.display_name) + "'s " + self.names[type],
                 colour=0x00bcff,
                 description="Please select an option from the dropbox below."
@@ -752,7 +752,7 @@ class Tickets(app_commands.Cog):
                     channelID = guildConfig.get("tickets", supportedType + "_channel")
                     try:
                         await guild.fetch_channel(channelID)
-                    except discord.errors.NotFound:
+                    except nextcord.errors.NotFound:
                         view = TicketSelectorView(self, guild, supportedType)
                         await self.bot.guild_debug(guild, ":tickets: Please specify a response channel for the ticket type: `" + supportedType + "`", view=view)
                         return
@@ -761,7 +761,7 @@ class Tickets(app_commands.Cog):
             channel = await guild.fetch_channel(guildConfig.get("tickets", "channel"))
 
             # Setup Ticket Embed
-            embed = discord.Embed(
+            embed = nextcord.Embed(
                 title="",
                 colour=0x00bcff,
                 description="Please select from the following options based on your needs."
@@ -781,7 +781,7 @@ class Tickets(app_commands.Cog):
                     manager = await channel.fetch_message(int(guildConfig.get("tickets", "manager")))
 
                     await manager.edit(embed=embed, view=TicketManager(self, guild))
-                except discord.errors.NotFound:
+                except nextcord.errors.NotFound:
                     pass
                 
             else:

@@ -1,7 +1,7 @@
-# Import Discord Modules
+# Import nextcord Modules
 import typing
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 from json import loads, dumps
 from time import sleep
 
@@ -10,18 +10,18 @@ import os
 from json import loads, dumps
 from configparser import ConfigParser
 
-class RoleSelector(discord.ui.Select):
+class RoleSelector(nextcord.ui.Select):
 
     def __init__(self, cog, guild):
         
         super().__init__(placeholder="Select Your Subscribed Role",
-                       options=[discord.SelectOption(label=str(role.name)[:25], description=str(role.id), value=str(role.id), emoji=role.icon)
+                       options=[nextcord.SelectOption(label=str(role.name)[:25], description=str(role.id), value=str(role.id), emoji=role.icon)
                                 for role in guild.roles[:25]])
 
         self.cog = cog
         self.guild = guild
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction: nextcord.Interaction):
 
         # Delete View
         message = interaction.message
@@ -42,25 +42,25 @@ class RoleSelector(discord.ui.Select):
         role = self.guild.get_role(int(roleID))
         await self.cog.bot.guild_debug(self.guild, ":book: Successfully added " + role.name + " to subscribed roles.")
 
-class RoleSelectorView(discord.ui.View):
+class RoleSelectorView(nextcord.ui.View):
 
     def __init__(self, cog, guild):
         super().__init__(timeout=None)
 
         self.add_item(RoleSelector(cog, guild))
 
-class RoleChannelSelector(discord.ui.Select):
+class RoleChannelSelector(nextcord.ui.Select):
 
     def __init__(self, cog, guild):
         
         super().__init__(placeholder="Select Your Roles Channel",
-                       options=[discord.SelectOption(label=str(channel.name), description=str(channel.id), value=str(channel.id), emoji='🎫')
+                       options=[nextcord.SelectOption(label=str(channel.name), description=str(channel.id), value=str(channel.id), emoji='🎫')
                                 for channel in guild.text_channels])
 
         self.cog = cog
         self.guild = guild
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction: nextcord.Interaction):
 
         await self.cog._set_role_channel(self.guild, interaction, self.values[0])
         await self.cog._guild_setup(self.guild)
@@ -70,7 +70,7 @@ class RoleChannelSelector(discord.ui.Select):
         await message.edit(view=None)
         
 
-class RoleChannelSelectorView(discord.ui.View):
+class RoleChannelSelectorView(nextcord.ui.View):
 
     def __init__(self, cog, guild):
         super().__init__(timeout=None)
@@ -155,7 +155,7 @@ class SelfRoles(commands.Cog):
             emojis = loads(guildConfig.get("self-roles", "roles"))
             for emoji in emojis:
                 emojiStr = emojis[emoji]
-                emojiIcon = discord.utils.get(guild.emojis, id=int(emojiStr))
+                emojiIcon = nextcord.utils.get(guild.emojis, id=int(emojiStr))
                 await message.add_reaction(emojiIcon)
                 
                         
