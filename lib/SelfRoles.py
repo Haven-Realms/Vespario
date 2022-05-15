@@ -144,7 +144,7 @@ class SelfRoles(commands.Cog):
 
                         channel = guild.get_channel(reaction.channel_id)
 
-                        memo = await channel.send(member.mention + " you now have the role for " + activeRole.mention)
+                        memo = await channel.send(member.mention + " you now have the role for " + activeRole.name)
                         sleep(3)
                         await memo.delete()
                         
