@@ -99,7 +99,7 @@ class Vespario(commands.Bot):
         # Update Presence
         await self._update_presence()
 
-    def _setup_guild(self, guild):
+    async def _setup_guild(self, guild):
 
         # Setup Properties
         guildDirectory = str("guilds/" + str(guild.id))
