@@ -138,7 +138,7 @@ class SelfRoles(commands.Cog):
             if reaction.message_id == manager:
                 for role in roles:
                     emoji = roles[role]
-                    if emojis.encode(emoji) == reaction.emoji.name:
+                    if emoji == emojis.decode(reaction.emoji.name):
                         member = guild.get_member(reaction.user_id)
                         activeRole = guild.get_role(int(role))
                         await member.add_roles(activeRole)                        
