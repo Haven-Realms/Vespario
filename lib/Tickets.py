@@ -815,8 +815,7 @@ def setup(bot):
     cog = Tickets(bot)
 
     # Update Recorded Cogs
-    cogs = {"tickets": cog}
-    bot.recordedCogs.update(cogs)
+    bot.recordedCogs.update(dict(tickets=cog))
     
     bot.add_cog(cog)
 
