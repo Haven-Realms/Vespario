@@ -1,2 +1,2 @@
 # Vespario
-Primary Discord Bot
+Primary Discord Bot for Randamonium
