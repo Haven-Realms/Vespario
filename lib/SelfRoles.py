@@ -9,6 +9,7 @@ import discord
 from discord.ext import commands
 from json import loads, dumps
 from time import sleep
+import emojis
 
 # Load Additional Modules
 import os
@@ -185,7 +186,7 @@ class SelfRoles(commands.Cog):
             emojis = loads(emojiJsonProcessed)
             for emoji in emojis:
                 emojiStr = emojis[emoji]
-                await message.add_reaction(emojiStr)
+                await message.add_reaction(emojis.encode(emojiStr))
                 
                         
     @commands.command()
