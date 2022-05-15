@@ -1,7 +1,7 @@
 # Import Discord Modules
 import typing
 import discord
-from discord.ext import app_commands
+from discord.ext import commands
 
 # Load Additional Modules
 import os
@@ -233,7 +233,7 @@ class TicketButton(discord.ui.Button["Ticket"]):
 
 
 # Tickets Module Class #
-class Tickets(app_commands.Cog):
+class Tickets(commands.Cog):
 
     def __init__(self, bot):
 
@@ -330,14 +330,14 @@ class Tickets(app_commands.Cog):
         else:
             return True
 
-    @app_commands.Cog.listener()
+    @commands.Cog.listener()
     async def on_ready(self):
         # Setup All Guilds With Tickets
         for guild in self.bot.guilds:
             if self.bot._has_feature(guild, "tickets"):
                 await self._guild_setup(guild)
 
-    @app_commands.command()
+    @commands.command()
     async def add_ticket_role(self, ctx, base = None):
         if base == None:
             await self.bot.guild_debug(guild, ":tickets: Please specify the ticket type you wish to add a role to.")
@@ -382,7 +382,7 @@ class Tickets(app_commands.Cog):
        # Save Config
        await self.bot._save_config(guild)
 
-    @app_commands.command()
+    @commands.command()
     async def set_ticket_channel(self, ctx):
         if ctx.message.author.guild_permissions.administrator:
 
@@ -486,7 +486,7 @@ class Tickets(app_commands.Cog):
         # End of Ticket
         await self._submit_response_ticket(guild, channel, type, member, questionTypes)
         
-    @app_commands.Cog.listener()
+    @commands.Cog.listener()
     async def on_message(self, message):
 
         # Define Variables
