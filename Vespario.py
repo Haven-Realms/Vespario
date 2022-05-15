@@ -166,6 +166,18 @@ class Vespario(commands.Bot):
         # Append Configuration Object
         setattr(self, str(guild.id) + "CONFIG", guildConfig)
 
+    async def _guild_feature_setup(self, guild):
+
+        config = self.get_config(guild)
+        for feature in config["features"]:
+            print(feature)
+            if feature in self.recordedCogs:
+                print(feature)
+                if self._has_feature(guild, feature):
+                    cog = self.recordedCogs[feature]
+                    print("running cog setup")
+                   await cog._guild_setup(guild)
+
     def _has_feature(self, guild, feature):
 
         # Get Guild Configuration
@@ -277,17 +289,7 @@ class Vespario(commands.Bot):
 
         # Update Servers of Status
         for guild in self.guilds:
-            config = self.get_config(guild)
-            for feature in config["features"]:
-                print(feature)
-                if feature in self.recordedCogs:
-                    print(feature)
-                    if self._has_feature(guild, feature):
-                        cog = self.recordedCogs[feature]
-                        print("running cog setup")
-                        await cog._guild_setup(guild)
-                else:
-                    print(self.recordedCogs)
+            await self._guild_setup(guild)
             await self.guild_debug(guild, ":green_circle: Vespario is now online.")
 
         print("Vespario Bot Online")
