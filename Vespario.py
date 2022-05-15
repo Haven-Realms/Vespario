@@ -275,15 +275,16 @@ class Vespario(commands.Bot):
         # Setup Bot
         await self._setup()
 
-        for feature in config["features"]:
-            if feature in self.recordedCogs[feature]:
-                print(feature)
-                cog = self.recordedCogs[feature]
-                print("running cog setup")
-                await cog._guild_setup(guild)
-
         # Update Servers of Status
         for guild in self.guilds:
+            config = self.get_config(guild)
+            for feature in config["features"]:
+                if feature in self.recordedCogs[feature]:
+                    print(feature)
+                    if self._has_feature(guild, feature):
+                        cog = self.recordedCogs[feature]
+                        print("running cog setup")
+                        await cog._guild_setup(guild)
             await self.guild_debug(guild, ":green_circle: Vespario is now online.")
 
         print("Vespario Bot Online")
