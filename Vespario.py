@@ -41,20 +41,17 @@ class Vespario(commands.Bot):
             "lib.SelfRoles"
         ]
         self.recordedCogs = {}
-        
-        # Attempt to Load Modules
-        for module in self.modules:
-            try:
-                await self.setup_hook(module)
-                print(f"Loaded Module: ({module}) Successfully")
-            except Exception as e:
-                print(f'[{type(e).__name__}] {e}')
 
         # Run & Connect Token
         self.run(self.token)
 
-    async def setup_hook(self, module):
-        await self.load_extension(module)
+    async def setup_hook(self):
+        for module in self.modules:
+            try:
+                await self.load_extension(module)
+                print(f"Loaded Module: ({module}) Successfully")
+            except Exception as e:
+                print(f'[{type(e).__name__}] {e}')
 
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CheckFailure):
