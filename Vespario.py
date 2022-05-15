@@ -149,7 +149,7 @@ class Vespario(commands.Bot):
             guildConfig.set("features", "moderation", "True")
             saveRequired = True
         if not guildConfig.has_option("features", "self-roles"):
-            guildConfig.set("features", "self-roles", "True")
+            guildConfig.set("features", "self-roles", "False")
             saveRequired = True
 
         # Check if Save & Update Config
