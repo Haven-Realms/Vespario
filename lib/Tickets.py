@@ -38,10 +38,21 @@ class TicketSelector(discord.ui.Select):
 
 class TicketSelectorView(discord.ui.View):
 
-    def __init__(self, cog, guild, base):
-        super().__init__(timeout=None)
+    def __init__(self, cog, guild, base, *args, **kwargs):
+        super().__init__(timeout=None, *args, **kwargs)
 
-        self.add_item(TicketSelector(cog, guild, base))
+    @discord.ui.select(placeholder="Select Your Ticket Channel",
+                       options=[discord.SelectOption(label=str(channel.name)[:25], description=str(channel.id), value=str(channel.id), emoji='🎫')
+                                for channel in guild.text_channels[:25]])
+
+    async def callback(self, interaction: discord.Interaction):
+
+        await self.cog._set_ticket_channel(self.guild, interaction, self.base, self.values[0])
+        await self.cog._guild_setup(self.guild)
+
+        # Delete View
+        message = interaction.message
+        await message.edit(view=None)
 
 class TicketRoleSelector(discord.ui.Select):
 
