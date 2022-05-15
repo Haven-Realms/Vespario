@@ -134,7 +134,7 @@ class SelfRoles(commands.Cog):
 
         if config.has_option("self-roles", "manager"):
             manager = int(config.get("self-roles", "manager"))
-            if reaction.message_id == message:
+            if reaction.message_id == manager:
                 for role in roles:
                     emoji = roles[role]
                     if emoji == reaction.name:
