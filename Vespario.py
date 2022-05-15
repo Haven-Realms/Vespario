@@ -286,6 +286,8 @@ class Vespario(commands.Bot):
                         cog = self.recordedCogs[feature]
                         print("running cog setup")
                         await cog._guild_setup(guild)
+                else:
+                    print(self.recordedCogs)
             await self.guild_debug(guild, ":green_circle: Vespario is now online.")
 
         print("Vespario Bot Online")
