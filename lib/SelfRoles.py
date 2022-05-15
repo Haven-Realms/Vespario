@@ -183,7 +183,7 @@ class SelfRoles(commands.Cog):
             emojis = loads(guildConfig.get("self-roles", "roles"))
             for emoji in emojis:
                 emojiStr = emojis[emoji]
-                self.bot.get_emoji(emojiStr)
+                emojiIcon = self.bot.get_emoji(emojiStr)
                 await message.add_reaction(emojiIcon)
                 
                         
