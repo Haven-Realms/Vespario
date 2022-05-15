@@ -99,7 +99,7 @@ class Vespario(commands.Bot):
         # Update Presence
         await self._update_presence()
 
-    async def _setup_guild(self, guild):
+    def _setup_guild(self, guild):
 
         # Setup Properties
         guildDirectory = str("guilds/" + str(guild.id))
@@ -165,13 +165,6 @@ class Vespario(commands.Bot):
 
         # Append Configuration Object
         setattr(self, str(guild.id) + "CONFIG", guildConfig)
-
-        for feature in config["features"]:
-            if feature in self.recordedCogs[feature]:
-                print(feature)
-                cog = self.recordedCogs[feature]
-                print("running cog setup")
-                await cog._guild_setup(guild)
 
     def _has_feature(self, guild, feature):
 
@@ -281,6 +274,13 @@ class Vespario(commands.Bot):
 
         # Setup Bot
         await self._setup()
+
+        for feature in config["features"]:
+            if feature in self.recordedCogs[feature]:
+                print(feature)
+                cog = self.recordedCogs[feature]
+                print("running cog setup")
+                await cog._guild_setup(guild)
 
         # Update Servers of Status
         for guild in self.guilds:
