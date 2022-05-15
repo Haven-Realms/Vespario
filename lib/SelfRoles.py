@@ -126,7 +126,6 @@ class SelfRoles(commands.Cog):
 
         guild = self.bot.get_guild(reaction.guild_id)
         config = self.bot.get_config(guild)
-
         if config.has_option("self-roles", "roles"):
             roles = loads(config.get("self-roles", "roles"))
         else:
@@ -135,6 +134,9 @@ class SelfRoles(commands.Cog):
         if config.has_option("self-roles", "manager"):
             manager = int(config.get("self-roles", "manager"))
             if reaction.message_id == manager:
+
+                print(reaction.emoji.id)
+
                 for role in roles:
                     emoji = roles[role]
                     if emoji == reaction.emoji.name:
@@ -183,8 +185,8 @@ class SelfRoles(commands.Cog):
             emojis = loads(guildConfig.get("self-roles", "roles"))
             for emoji in emojis:
                 emojiStr = emojis[emoji]
-                #emojiIcon = discord.utils.get(guild.emojis, id=str(emojiStr))
-                await message.add_reaction(str(emojiStr))
+                self.bot.get_emoji(int(emojiStr))
+                await message.add_reaction(emojiIcon)
                 
                         
     @commands.command()
