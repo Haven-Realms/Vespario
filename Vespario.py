@@ -176,7 +176,7 @@ class Vespario(commands.Bot):
                 if self._has_feature(guild, feature):
                     cog = self.recordedCogs[feature]
                     print("running cog setup")
-                   await cog._guild_setup(guild)
+                    await cog._guild_setup(guild)
 
     def _has_feature(self, guild, feature):
 
