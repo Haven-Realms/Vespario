@@ -70,7 +70,7 @@ class Vespario(commands.Bot):
 
     async def on_member_join(self, member):
 
-        await member.guild.system_channel.send("Welcome " + member.mention + " to our community! Please be sure to accept the rules in order to verify and gain full access to our community.")
+        await member.guild.system_channel.send("Welcome " + member.mention + " to our community! Please be sure to accept the rules in order to verify and gain full access to our community and get your member role.")
 
     async def get_prefix(self, message):
         guild = message.guild
