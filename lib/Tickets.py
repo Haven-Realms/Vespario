@@ -749,19 +749,20 @@ class Tickets(commands.Cog):
                 if option.endswith("_questions"):
                     supportedTypes.append(option.replace("_questions", ""))
             for supportedType in supportedTypes:
-                if not guildConfig.has_option("tickets", supportedType + "_channel"):
-                    view = TicketSelectorView(self, guild, supportedType)
-                    await self.bot.guild_debug(guild, ":tickets: Please specify a response channel for the ticket type: `" + supportedType + "`", view=view)
-                    return
-                else:
-                    # Verify Channel Still Exists
-                    channelID = guildConfig.get("tickets", supportedType + "_channel")
-                    try:
-                        await guild.fetch_channel(channelID)
-                    except discord.errors.NotFound:
+                if guildConfig.get("tickets", supportedType) == str(True):
+                    if not guildConfig.has_option("tickets", supportedType + "_channel"):
                         view = TicketSelectorView(self, guild, supportedType)
                         await self.bot.guild_debug(guild, ":tickets: Please specify a response channel for the ticket type: `" + supportedType + "`", view=view)
                         return
+                    else:
+                        # Verify Channel Still Exists
+                        channelID = guildConfig.get("tickets", supportedType + "_channel")
+                        try:
+                            await guild.fetch_channel(channelID)
+                        except discord.errors.NotFound:
+                            view = TicketSelectorView(self, guild, supportedType)
+                            await self.bot.guild_debug(guild, ":tickets: Please specify a response channel for the ticket type: `" + supportedType + "`", view=view)
+                            return
                     
             # Define Variables
             channel = await guild.fetch_channel(guildConfig.get("tickets", "channel"))
