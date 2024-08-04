@@ -124,7 +124,6 @@ class SelfRoles(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, reaction):
-
         guild = self.bot.get_guild(reaction.guild_id)
         config = self.bot.get_config(guild)
 
@@ -144,6 +143,26 @@ class SelfRoles(commands.Cog):
                         await member.add_roles(activeRole)                        
                         break
                         
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, reaction):
+        guild = self.bot.get_guild(reaction.guild_id)
+        config = self.bot.get_config(guild)
+
+        if config.has_option("self-roles", "roles"):
+            roles = loads(config.get("self-roles", "roles"))
+        else:
+            roles = {}
+
+        if config.has_option("self-roles", "manager"):
+            manager = int(config.get("self-roles", "manager"))
+            if reaction.message_id == manager:
+                for role in roles:
+                    emoji = roles[role]
+                    if emoji == emojis.decode(reaction.emoji.name):
+                        member = guild.get_member(reaction.user_id)
+                        activeRole = guild.get_role(int(role))
+                        await member.remove_roles(activeRole)                        
+                        break
                 
     async def _set_role_channel(self, guild, interaction, channelID):
 
